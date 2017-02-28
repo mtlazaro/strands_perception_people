@@ -82,6 +82,11 @@ index_t pointIndex (const nav_msgs::MapMetaData& info, const geometry_msgs::Poin
 void map_callback(const nav_msgs::OccupancyGrid::ConstPtr& msg)
 {
     ppl_map = *msg;
+    ROS_INFO("PeopleTrackerFilter:: map received.");
+    if (ppl_map.header.stamp.sec==0) {
+        ROS_WARN("Map time stamp was 0. Set to 1.");
+        ppl_map.header.stamp.sec=1;
+    }
 }
 
 void callback(const bayes_people_tracker::PeopleTracker::ConstPtr& pt,
@@ -178,7 +183,7 @@ int main(int argc, char **argv)
     pn.param("map_topic", map_topic, std::string("/ppl_filter_map"));
     ros::Subscriber sub = n.subscribe(map_topic, 1, map_callback);
     while(ppl_map.header.stamp.sec == 0 and ros::ok()){
-        ROS_INFO_NAMED(n.getNamespace(), "Waiting for map");
+        ROS_INFO_NAMED(n.getNamespace(), "Waiting for map %s", map_topic.c_str());
         ros::Duration(1).sleep();
         ros::spinOnce();
     }
