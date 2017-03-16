@@ -28,11 +28,13 @@ void callback(const sensor_msgs::JointState::ConstPtr &msg) {
     }
 
     ROS_DEBUG_STREAM("Normal before rotation: " << _normal.getX() << ", " << _normal.getY() << ", " << _normal.getZ());
+    //std::cerr<<"Normal before rotation: " << _normal.getX() << ", " << _normal.getY() << ", " << _normal.getZ()<<std::endl;
     tf::Vector3 n = _normal.rotate(tf::Vector3(1,0,0), tilt); //Rotate about x-axis using ptu tilt angle
     ROS_DEBUG_STREAM("Normal after rotation: " << n.getX() << ", " << n.getY() << ", " << n.getZ());
+   // std::cerr<<"Normal after rotation: " << n.getX() << ", " << n.getY() << ", " << n.getZ()<<std::endl;
     GroundPlane gp;
-    gp.header.frame_id = "/head_xtion_depth_optical_frame";
-    gp.header.stamp = msg->header.stamp;
+    gp.header.frame_id = "/camera_depth_optical_frame";
+    gp.header.stamp = ros::Time::now();
     gp.header.seq = ++_seq;
     ROS_DEBUG_STREAM("Created header:\n" << gp.header);
     gp.n.push_back(n.getX());
