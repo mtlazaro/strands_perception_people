@@ -2,6 +2,16 @@
 Changelog for package perception_people_launch
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.6.0 (2017-09-01)
+------------------
+* changed from cdondrup to marc
+* Contributors: Marc Hanheide
+
+1.5.5 (2017-07-02)
+------------------
+* corrects visual odometry motion matrix, based on tf-tree (fixes mdl-tracker)
+* Contributors: sbreuers
+
 1.5.4 (2016-11-03)
 ------------------
 * Adding the wheelchair detector to the tracker launch file. (`#211 <https://github.com/strands-project/strands_perception_people/issues/211>`_)
